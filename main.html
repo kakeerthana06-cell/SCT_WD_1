@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Royal Paradise Hotel</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+<h1>Royal Paradise Hotel</h1>
+<a href="booking.html" class="book-btn">Book Now</a>
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero">
+<h2>Luxury Stay & Delicious Food</h2>
+<p>Welcome to Royal Paradise Hotel</p>
+</section>
+
+
+
+<!-- ROOMS -->
+
+<section>
+
+<h2>Our Rooms</h2>
+
+<div class="card-container">
+
+<div class="card" onclick="showRoom('deluxe')">
+Deluxe Room
+</div>
+
+<div class="card" onclick="showRoom('family')">
+Family Room
+</div>
+
+<div class="card" onclick="showRoom('suite')">
+Executive Suite
+</div>
+
+</div>
+
+<div class="display">
+
+<img id="roomImg" src="https://images.unsplash.com/photo-1566665797739-1674de7a421a">
+<h3 id="roomPrice">Click a room to see price</h3>
+
+</div>
+
+</section>
+
+
+
+<!-- FOOD -->
+
+<section>
+
+<h2>Restaurant Menu</h2>
+
+<div class="card-container">
+
+<div class="card" onclick="showFood('italian')">
+Italian
+</div>
+
+<div class="card" onclick="showFood('south')">
+South Indian
+</div>
+
+<div class="card" onclick="showFood('chinese')">
+Chinese
+</div>
+
+</div>
+
+<div class="display">
+
+<img id="foodImg" src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092">
+<h3 id="foodPrice">Click food type to see price</h3>
+
+</div>
+
+</section>
+
+
+
+<!-- SERVICES -->
+
+<section>
+
+<h2>Hotel Services</h2>
+
+<div class="card-container">
+
+<div class="card" onclick="showService('pool')">
+Swimming Pool
+</div>
+
+<div class="card" onclick="showService('spa')">
+Luxury Spa
+</div>
+
+<div class="card" onclick="showService('dining')">
+Fine Dining
+</div>
+
+</div>
+
+<div class="display">
+
+<img id="serviceImg" src="https://images.unsplash.com/photo-1572331165267-854da2b10ccc">
+<h3 id="servicePrice">Click a service to see price</h3>
+
+</div>
+
+</section>
+
+
+<script src="script.js"></script>
+</body>
+</html>
