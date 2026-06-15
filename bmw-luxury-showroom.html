@@ -345,6 +345,14 @@
         .card-actions .btn { flex: 1; min-width: 130px; }
 
         /* ---------- Configurator ---------- */
+        .workflow-bar { display: flex; gap: 0.4rem; margin-bottom: 1.4rem; padding: 0.5rem; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); overflow-x: auto; backdrop-filter: blur(12px); scrollbar-width: none; }
+        .workflow-bar::-webkit-scrollbar { display: none; }
+        .workflow-step { flex: 1 0 auto; display: flex; align-items: center; gap: 0.5rem; padding: 0.55rem 0.9rem; border-radius: 999px; white-space: nowrap; font-size: 0.82rem; font-weight: 600; color: var(--muted); transition: all 0.3s var(--ease); }
+        .workflow-step .step-index { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 0.74rem; background: var(--surface-2); border: 1px solid var(--line); transition: all 0.3s var(--ease); }
+        .workflow-step.done { color: var(--light); }
+        .workflow-step.done .step-index { background: var(--accent); border-color: transparent; color: #04121f; }
+        .workflow-step.active { color: var(--light); background: var(--glass); }
+        .workflow-step.active .step-index { background: linear-gradient(135deg, var(--primary), var(--accent)); border-color: transparent; color: #fff; box-shadow: 0 0 0 4px rgba(0, 163, 255, 0.18); }
         .configurator-wrap { display: grid; grid-template-columns: 7fr 3fr; gap: 1.6rem; align-items: start; }
         .config-visual { position: sticky; top: 96px; }
         .configurator-panel.config-visual {
@@ -556,6 +564,8 @@
         .gallery-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: rgba(6, 11, 22, 0.7); border: 1px solid var(--line); color: #fff; z-index: 3; transition: all 0.25s; }
         .gallery-nav:hover { background: var(--accent); }
         .gallery-nav.prev { left: 1rem; } .gallery-nav.next { right: 1rem; }
+        .gallery-expand { position: absolute; bottom: 1rem; right: 1rem; z-index: 3; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.55rem 0.9rem; border-radius: 999px; background: rgba(6, 11, 22, 0.72); border: 1px solid var(--line); color: #fff; font-size: 0.82rem; font-weight: 600; backdrop-filter: blur(8px); transition: all 0.25s; }
+        .gallery-expand:hover { background: var(--accent); border-color: transparent; }
         .thumb-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7rem; }
         .thumb-grid img { aspect-ratio: 16/10; object-fit: cover; border-radius: var(--radius-md); cursor: pointer; border: 2px solid transparent; transition: border-color 0.25s, transform 0.25s; }
         .thumb-grid img:hover { transform: translateY(-3px); border-color: var(--accent); }
@@ -565,6 +575,33 @@
         .detail-list > div { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--line-soft); font-size: 0.9rem; }
         .detail-list span { color: var(--muted); }
         .detail-panel .pricing-value { font-size: 1.8rem; margin: 0.3rem 0 1rem; }
+
+        /* ---------- Fullscreen gallery (lightbox) ---------- */
+        .lightbox { position: fixed; inset: 0; z-index: 120; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; padding: 1.2rem; background: radial-gradient(circle at 50% 30%, rgba(18, 28, 48, 0.96), rgba(4, 7, 14, 0.98)); backdrop-filter: blur(14px); opacity: 0; transition: opacity 0.3s var(--ease); }
+        .lightbox.active { display: flex; opacity: 1; }
+        .lightbox-bar { position: absolute; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.1rem 1.4rem; }
+        .lightbox-title { font-weight: 700; letter-spacing: 0.04em; color: #fff; }
+        .lightbox-controls { display: flex; align-items: center; gap: 0.55rem; }
+        .lightbox-zoom { min-width: 3rem; text-align: center; font-size: 0.85rem; color: var(--muted); }
+        .lightbox-btn { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: var(--glass); border: 1px solid var(--border); color: #fff; transition: all 0.25s; }
+        .lightbox-btn:hover { background: var(--accent); border-color: transparent; }
+        .lightbox-stage { flex: 1; width: min(1100px, 92vw); display: grid; place-items: center; overflow: hidden; border-radius: var(--radius-xl); }
+        .lightbox-stage img { max-width: 100%; max-height: 72vh; object-fit: contain; border-radius: var(--radius-lg); transform: scale(1); transition: transform 0.3s var(--ease); cursor: zoom-in; user-select: none; touch-action: pan-y; }
+        .lightbox-stage.zoomed img { cursor: grab; }
+        .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; background: var(--glass); border: 1px solid var(--border); color: #fff; z-index: 3; transition: all 0.25s; }
+        .lightbox-nav:hover { background: var(--accent); border-color: transparent; }
+        .lightbox-nav.prev { left: 1.6rem; } .lightbox-nav.next { right: 1.6rem; }
+        .lightbox-thumbs { display: flex; gap: 0.6rem; flex-wrap: wrap; justify-content: center; max-width: 92vw; }
+        .lightbox-thumbs img { width: 92px; height: 58px; object-fit: cover; border-radius: var(--radius-md); cursor: pointer; border: 2px solid transparent; opacity: 0.6; transition: all 0.25s; }
+        .lightbox-thumbs img:hover { opacity: 1; transform: translateY(-3px); }
+        .lightbox-thumbs img.active { opacity: 1; border-color: var(--accent); }
+        .lightbox-hint { font-size: 0.78rem; color: var(--muted); text-align: center; }
+        @media (max-width: 768px) {
+            .lightbox-nav { width: 44px; height: 44px; }
+            .lightbox-nav.prev { left: 0.6rem; } .lightbox-nav.next { right: 0.6rem; }
+            .lightbox-stage img { max-height: 60vh; }
+            .lightbox-hint { display: none; }
+        }
 
         /* ---------- Auth ---------- */
         .auth-card .field { margin-bottom: 1rem; }
@@ -851,6 +888,8 @@
                         </div>
                         <p>Real-time color, wheels, interior, packages, technology, performance and lighting — with a live price engine.</p>
                     </div>
+
+                    <div class="workflow-bar" id="workflowBar" aria-label="Configuration workflow"></div>
 
                     <div class="configurator-wrap">
                         <div class="configurator-panel config-visual">
@@ -1157,6 +1196,7 @@
                     <button class="gallery-nav prev" id="galleryPrev" aria-label="Previous image"><i class="fa-solid fa-chevron-left"></i></button>
                     <img id="modalMainImage" src="" alt="Selected BMW">
                     <button class="gallery-nav next" id="galleryNext" aria-label="Next image"><i class="fa-solid fa-chevron-right"></i></button>
+                    <button class="gallery-expand" id="galleryExpand" aria-label="Open fullscreen gallery"><i class="fa-solid fa-up-right-and-down-left-from-center"></i> Fullscreen</button>
                 </div>
                 <div class="thumb-grid" id="modalThumbs"></div>
             </div>
@@ -1182,6 +1222,26 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="lightbox" id="galleryLightbox" role="dialog" aria-modal="true" aria-label="Fullscreen gallery">
+        <div class="lightbox-bar">
+            <span class="lightbox-title" id="lightboxTitle">BMW gallery</span>
+            <div class="lightbox-controls">
+                <button class="lightbox-btn" id="lightboxZoomOut" aria-label="Zoom out"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+                <span class="lightbox-zoom" id="lightboxZoomLabel">100%</span>
+                <button class="lightbox-btn" id="lightboxZoomIn" aria-label="Zoom in"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                <button class="lightbox-btn" id="lightboxFullscreen" aria-label="Toggle fullscreen"><i class="fa-solid fa-expand"></i></button>
+                <button class="lightbox-btn" id="lightboxClose" aria-label="Close gallery"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>
+        <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Previous image"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="lightbox-stage" id="lightboxStage">
+            <img id="lightboxImage" src="" alt="BMW fullscreen view" draggable="false">
+        </div>
+        <button class="lightbox-nav next" id="lightboxNext" aria-label="Next image"><i class="fa-solid fa-chevron-right"></i></button>
+        <div class="lightbox-thumbs" id="lightboxThumbs"></div>
+        <p class="lightbox-hint">Arrow keys to navigate &middot; +/- to zoom &middot; F for fullscreen &middot; Esc to close &middot; swipe on touch</p>
     </div>
 
     <div class="overlay" id="authOverlay">
@@ -1659,6 +1719,216 @@
                         { id: "ivory", name: "Ivory White", price: 145000 },
                         { id: "black", name: "Black Vernasca", price: 155000 }
                     ]
+                },
+                {
+                    id: "series3",
+                    name: "BMW 3 Series",
+                    category: "luxury",
+                    family: "Luxury Sedan",
+                    priceValue: 6500000,
+                    priceLabel: "Rs. 65.00 Lakh",
+                    power: "258 hp",
+                    range: "Petrol / Diesel",
+                    acceleration: "5.8 sec",
+                    tagline: "The definitive sports sedan, sharpened for every drive.",
+                    description: "The 3 Series blends agile dynamics, a driver-focused cockpit, and modern luxury into BMW's most iconic sports sedan.",
+                    badges: ["Sports Sedan", "258 hp", "M Sport"],
+                    heroImage: "https://images.unsplash.com/photo-1502161254066-6c74afbf07aa?auto=format&fit=crop&w=1200&q=80",
+                    gallery: [
+                        "https://images.unsplash.com/photo-1502161254066-6c74afbf07aa?auto=format&fit=crop&w=1200&q=80",
+                        "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80",
+                        "https://images.unsplash.com/photo-1494905998402-395d579af36f?auto=format&fit=crop&w=1200&q=80"
+                    ],
+                    colors: [
+                        { id: "alpine-white", name: "Alpine White", hex: "#eef2f5", price: 0, image: "https://images.unsplash.com/photo-1502161254066-6c74afbf07aa?auto=format&fit=crop&w=1200&q=80" },
+                        { id: "portimao-blue", name: "Portimao Blue", hex: "#1c4fae", price: 145000, image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80" },
+                        { id: "black-sapphire", name: "Black Sapphire", hex: "#121722", price: 125000, image: "https://images.unsplash.com/photo-1494905998402-395d579af36f?auto=format&fit=crop&w=1200&q=80" }
+                    ],
+                    wheels: [
+                        { id: "v-spoke-18", name: "18in V-Spoke", price: 0 },
+                        { id: "m-double-19", name: "19in M Double-Spoke", price: 115000 },
+                        { id: "jetblack-19", name: "19in Jet Black", price: 145000 }
+                    ],
+                    interiors: [
+                        { id: "black-vernasca", name: "Black Vernasca", price: 0 },
+                        { id: "cognac", name: "Cognac", price: 95000 },
+                        { id: "oyster", name: "Oyster", price: 110000 }
+                    ]
+                },
+                {
+                    id: "series5",
+                    name: "BMW 5 Series",
+                    category: "luxury",
+                    family: "Luxury Sedan",
+                    priceValue: 7500000,
+                    priceLabel: "Rs. 75.00 Lakh",
+                    power: "295 hp",
+                    range: "Petrol / Diesel",
+                    acceleration: "6.1 sec",
+                    tagline: "Executive presence with effortless long-distance composure.",
+                    description: "The 5 Series pairs business-class refinement with athletic handling and a serene, technology-rich cabin for the modern executive.",
+                    badges: ["Executive", "295 hp", "Curved Display"],
+                    heroImage: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80",
+                    gallery: [
+                        "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80",
+                        "https://images.unsplash.com/photo-1502161254066-6c74afbf07aa?auto=format&fit=crop&w=1200&q=80",
+                        "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80"
+                    ],
+                    colors: [
+                        { id: "mineral-white", name: "Mineral White", hex: "#eef2f5", price: 0, image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80" },
+                        { id: "tanzanite-blue", name: "Tanzanite Blue", hex: "#27355c", price: 165000, image: "https://images.unsplash.com/photo-1502161254066-6c74afbf07aa?auto=format&fit=crop&w=1200&q=80" },
+                        { id: "carbon-black", name: "Carbon Black", hex: "#1d2430", price: 145000, image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80" }
+                    ],
+                    wheels: [
+                        { id: "v-spoke-18", name: "18in V-Spoke", price: 0 },
+                        { id: "aero-19", name: "19in Aerodynamic", price: 135000 },
+                        { id: "m-20", name: "20in M Light-Alloy", price: 185000 }
+                    ],
+                    interiors: [
+                        { id: "black-dakota", name: "Black Dakota", price: 0 },
+                        { id: "mocha", name: "Mocha", price: 125000 },
+                        { id: "ivory", name: "Ivory White", price: 145000 }
+                    ]
+                },
+                {
+                    id: "x1",
+                    name: "BMW X1",
+                    category: "suv",
+                    family: "Compact SUV",
+                    priceValue: 4900000,
+                    priceLabel: "Rs. 49.00 Lakh",
+                    power: "204 hp",
+                    range: "Petrol / Diesel",
+                    acceleration: "7.6 sec",
+                    tagline: "Compact versatility with premium presence.",
+                    description: "The X1 delivers elevated seating, flexible space, and confident urban dynamics with a modern, digital-first cabin.",
+                    badges: ["Compact SUV", "204 hp", "xDrive"],
+                    heroImage: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+                    gallery: [
+                        "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+                        "https://images.unsplash.com/photo-1583267746897-2cf415887172?auto=format&fit=crop&w=1200&q=80",
+                        "https://images.unsplash.com/photo-1498887960847-2a5e46312788?auto=format&fit=crop&w=1200&q=80"
+                    ],
+                    colors: [
+                        { id: "space-silver", name: "Space Silver", hex: "#c9cfd8", price: 0, image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80" },
+                        { id: "midnight-black", name: "Midnight Black", hex: "#171d29", price: 95000, image: "https://images.unsplash.com/photo-1583267746897-2cf415887172?auto=format&fit=crop&w=1200&q=80" },
+                        { id: "cape-green", name: "Cape Green", hex: "#536f61", price: 115000, image: "https://images.unsplash.com/photo-1498887960847-2a5e46312788?auto=format&fit=crop&w=1200&q=80" }
+                    ],
+                    wheels: [
+                        { id: "y-spoke-17", name: "17in Y-Spoke", price: 0 },
+                        { id: "double-18", name: "18in Double-Spoke", price: 95000 },
+                        { id: "m-19", name: "19in M Light-Alloy", price: 135000 }
+                    ],
+                    interiors: [
+                        { id: "black-sensa", name: "Black Sensatec", price: 0 },
+                        { id: "oyster", name: "Oyster", price: 85000 },
+                        { id: "mocha", name: "Mocha", price: 95000 }
+                    ]
+                },
+                {
+                    id: "x3",
+                    name: "BMW X3",
+                    category: "suv",
+                    family: "Luxury SUV",
+                    priceValue: 7500000,
+                    priceLabel: "Rs. 75.00 Lakh",
+                    power: "245 hp",
+                    range: "Petrol / Diesel",
+                    acceleration: "6.6 sec",
+                    tagline: "Athletic mid-size SUV built for every journey.",
+                    description: "The X3 balances commanding road presence, agile handling, and a premium cabin for confident family and long-distance travel.",
+                    badges: ["Luxury SUV", "245 hp", "xDrive"],
+                    heroImage: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
+                    gallery: [
+                        "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
+                        "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1200&q=80",
+                        "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1200&q=80"
+                    ],
+                    colors: [
+                        { id: "mineral-white", name: "Mineral White", hex: "#e9edf2", price: 0, image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80" },
+                        { id: "carbon-black", name: "Carbon Black", hex: "#1d2430", price: 145000, image: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1200&q=80" },
+                        { id: "phytonic-blue", name: "Phytonic Blue", hex: "#2150a8", price: 165000, image: "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1200&q=80" }
+                    ],
+                    wheels: [
+                        { id: "v-spoke-19", name: "19in V-Spoke", price: 0 },
+                        { id: "m-20", name: "20in M Double-Spoke", price: 155000 },
+                        { id: "jetblack-21", name: "21in Jet Black", price: 195000 }
+                    ],
+                    interiors: [
+                        { id: "black-vernasca", name: "Black Vernasca", price: 0 },
+                        { id: "cognac", name: "Cognac", price: 115000 },
+                        { id: "oyster", name: "Oyster", price: 125000 }
+                    ]
+                },
+                {
+                    id: "m2",
+                    name: "BMW M2",
+                    category: "performance",
+                    family: "M Coupe",
+                    priceValue: 9800000,
+                    priceLabel: "Rs. 98.00 Lakh",
+                    power: "460 hp",
+                    range: "Petrol",
+                    acceleration: "4.1 sec",
+                    tagline: "Pure rear-drive M energy in a compact form.",
+                    description: "The M2 is a focused, rear-wheel-drive M coupe with raw straight-six power, aggressive stance, and uncompromising driver engagement.",
+                    badges: ["M Coupe", "460 hp", "RWD"],
+                    heroImage: "https://images.unsplash.com/photo-1523983388277-336a66bf9bcd?auto=format&fit=crop&w=1200&q=80",
+                    gallery: [
+                        "https://images.unsplash.com/photo-1523983388277-336a66bf9bcd?auto=format&fit=crop&w=1200&q=80",
+                        "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1200&q=80",
+                        "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80"
+                    ],
+                    colors: [
+                        { id: "toronto-red", name: "Toronto Red", hex: "#9c1f24", price: 0, image: "https://images.unsplash.com/photo-1523983388277-336a66bf9bcd?auto=format&fit=crop&w=1200&q=80" },
+                        { id: "zandvoort-blue", name: "Zandvoort Blue", hex: "#1c4fae", price: 165000, image: "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1200&q=80" },
+                        { id: "black-sapphire", name: "Black Sapphire", hex: "#121722", price: 145000, image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80" }
+                    ],
+                    wheels: [
+                        { id: "m-forged-19", name: "19in M Forged", price: 0 },
+                        { id: "m-mixed-20", name: "20in M Mixed", price: 195000 },
+                        { id: "track-20", name: "20in Track", price: 245000 }
+                    ],
+                    interiors: [
+                        { id: "black-merino", name: "Black Merino", price: 0 },
+                        { id: "kyalami-orange", name: "Kyalami Orange", price: 165000 },
+                        { id: "silverstone", name: "Silverstone", price: 155000 }
+                    ]
+                },
+                {
+                    id: "m3comp",
+                    name: "BMW M3 Competition",
+                    category: "performance",
+                    family: "M Sedan",
+                    priceValue: 13200000,
+                    priceLabel: "Rs. 1.32 Cr",
+                    power: "510 hp",
+                    range: "Petrol",
+                    acceleration: "3.5 sec",
+                    tagline: "The benchmark M sedan, sharpened to Competition spec.",
+                    description: "The M3 Competition fuses everyday usability with track-bred performance, delivering immense power, precise control, and unmistakable M character.",
+                    badges: ["M Sedan", "510 hp", "M xDrive"],
+                    heroImage: "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1200&q=80",
+                    gallery: [
+                        "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1200&q=80",
+                        "https://images.unsplash.com/photo-1523983388277-336a66bf9bcd?auto=format&fit=crop&w=1200&q=80",
+                        "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80"
+                    ],
+                    colors: [
+                        { id: "sao-paulo-yellow", name: "Sao Paulo Yellow", hex: "#e0c200", price: 0, image: "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1200&q=80" },
+                        { id: "isle-of-man-green", name: "Isle of Man Green", hex: "#1f4d3a", price: 195000, image: "https://images.unsplash.com/photo-1523983388277-336a66bf9bcd?auto=format&fit=crop&w=1200&q=80" },
+                        { id: "black-sapphire", name: "Black Sapphire", hex: "#121722", price: 165000, image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80" }
+                    ],
+                    wheels: [
+                        { id: "m-forged-19", name: "19in/20in M Forged", price: 0 },
+                        { id: "m-gold-19", name: "19in/20in M Gold", price: 215000 },
+                        { id: "track-20", name: "20in Track Star", price: 265000 }
+                    ],
+                    interiors: [
+                        { id: "black-merino", name: "Black Merino", price: 0 },
+                        { id: "yas-marina", name: "Yas Marina Blue", price: 175000 },
+                        { id: "kyalami-orange", name: "Kyalami Orange", price: 185000 }
+                    ]
                 }
             ];
 
@@ -1707,7 +1977,8 @@
                 { id: "executive", name: "Executive Package", price: 1200000, summary: "Rear executive seats, theatre screen, chauffeur comfort." },
                 { id: "comfort", name: "Comfort Package", price: 450000, summary: "4-zone climate, soft-close doors, comfort access." },
                 { id: "technology", name: "Technology Package", price: 650000, summary: "Driving Assistant Pro, Parking Pro, Head-Up Display." },
-                { id: "sport", name: "Sport Package", price: 750000, summary: "M aerodynamics, sport seats, adaptive dampers." }
+                { id: "sport", name: "Sport Package", price: 750000, summary: "M aerodynamics, sport seats, adaptive dampers." },
+                { id: "msport", name: "M Sport Package", price: 980000, summary: "M aero kit, M Sport suspension, M leather wheel, shadowline trim." }
             ];
 
             const techOptions = [
@@ -1837,6 +2108,20 @@
                 modalHeroImage: document.getElementById("modalHeroImage"),
                 galleryPrev: document.getElementById("galleryPrev"),
                 galleryNext: document.getElementById("galleryNext"),
+                workflowBar: document.getElementById("workflowBar"),
+                galleryExpand: document.getElementById("galleryExpand"),
+                galleryLightbox: document.getElementById("galleryLightbox"),
+                lightboxImage: document.getElementById("lightboxImage"),
+                lightboxStage: document.getElementById("lightboxStage"),
+                lightboxThumbs: document.getElementById("lightboxThumbs"),
+                lightboxTitle: document.getElementById("lightboxTitle"),
+                lightboxZoomLabel: document.getElementById("lightboxZoomLabel"),
+                lightboxZoomIn: document.getElementById("lightboxZoomIn"),
+                lightboxZoomOut: document.getElementById("lightboxZoomOut"),
+                lightboxFullscreen: document.getElementById("lightboxFullscreen"),
+                lightboxClose: document.getElementById("lightboxClose"),
+                lightboxPrev: document.getElementById("lightboxPrev"),
+                lightboxNext: document.getElementById("lightboxNext"),
                 togglePass: document.getElementById("togglePass"),
                 bookingProgress: document.getElementById("bookingProgress"),
                 bookingConfirm: document.getElementById("bookingConfirm")
@@ -1934,6 +2219,10 @@
             let activeCategory = "all";
             let modalCarId = cars[0].id;
             let modalGalleryIndex = 0;
+            let lightboxIndex = 0;
+            let lightboxZoom = 1;
+            let lightboxTouchStartX = null;
+            let workflowSavedSignature = null;
             const lightPresets = {
                 off: null,
                 ice: "#9ed8ff",
@@ -2323,8 +2612,51 @@
                     window.setTimeout(() => elements.pricingBox.classList.remove("pulse"), 320);
                 }
 
+                renderWorkflow();
+
                 writeStorage(storageKeys.config, currentConfig);
                 renderGarage();
+            }
+
+            function configSignature(config) {
+                return JSON.stringify({
+                    carId: config.carId,
+                    colorId: config.colorId,
+                    wheelId: config.wheelId,
+                    interiorId: config.interiorId,
+                    packageId: config.packageId || null,
+                    tech: [...(config.tech || [])].sort(),
+                    performance: [...(config.performance || [])].sort()
+                });
+            }
+
+            function markBuildSaved() {
+                workflowSavedSignature = configSignature(currentConfig);
+                renderWorkflow();
+            }
+
+            function renderWorkflow() {
+                if (!elements.workflowBar) {
+                    return;
+                }
+                const hasFeatures = (currentConfig.tech || []).length > 0 || (currentConfig.performance || []).length > 0;
+                const isSaved = workflowSavedSignature === configSignature(currentConfig);
+                const steps = [
+                    { label: "Model", done: Boolean(currentConfig.carId) },
+                    { label: "Exterior", done: Boolean(currentConfig.colorId) },
+                    { label: "Wheels", done: Boolean(currentConfig.wheelId) },
+                    { label: "Interior", done: Boolean(currentConfig.interiorId) },
+                    { label: "Packages", done: Boolean(currentConfig.packageId) },
+                    { label: "Features", done: hasFeatures },
+                    { label: "Review", done: isSaved },
+                    { label: "Save / Purchase", done: isSaved }
+                ];
+                const activeIndex = steps.findIndex((step) => !step.done);
+                elements.workflowBar.innerHTML = steps.map((step, index) => {
+                    const stateClass = step.done ? "done" : (index === activeIndex ? "active" : "");
+                    const indexContent = step.done ? '<i class="fa-solid fa-check"></i>' : (index + 1);
+                    return `<div class="workflow-step ${stateClass}"><span class="step-index">${indexContent}</span><span>${step.label}</span></div>`;
+                }).join("");
             }
 
             function renderGarage() {
@@ -2413,6 +2745,54 @@
                 Array.from(elements.modalThumbs.children).forEach((thumb, i) => {
                     thumb.style.borderColor = i === modalGalleryIndex ? "var(--accent)" : "transparent";
                 });
+            }
+
+            function openLightbox(index) {
+                const car = getCarById(modalCarId);
+                if (!car || !car.gallery.length) {
+                    return;
+                }
+                elements.lightboxTitle.textContent = `${car.name} — Gallery`;
+                elements.lightboxThumbs.innerHTML = car.gallery.map((image, i) => `
+                    <img src="${image}" alt="${car.name} view ${i + 1}" data-lightbox-index="${i}" loading="lazy">
+                `).join("");
+                lightboxSetImage(index);
+                elements.galleryLightbox.classList.add("active");
+            }
+
+            function lightboxSetImage(index) {
+                const car = getCarById(modalCarId);
+                if (!car || !car.gallery.length) {
+                    return;
+                }
+                lightboxIndex = (index + car.gallery.length) % car.gallery.length;
+                elements.lightboxImage.src = car.gallery[lightboxIndex];
+                setLightboxZoom(1);
+                Array.from(elements.lightboxThumbs.children).forEach((thumb, i) => {
+                    thumb.classList.toggle("active", i === lightboxIndex);
+                });
+            }
+
+            function setLightboxZoom(value) {
+                lightboxZoom = Math.min(3, Math.max(1, Math.round(value * 10) / 10));
+                elements.lightboxImage.style.transform = `scale(${lightboxZoom})`;
+                elements.lightboxZoomLabel.textContent = `${Math.round(lightboxZoom * 100)}%`;
+                elements.lightboxStage.classList.toggle("zoomed", lightboxZoom > 1);
+            }
+
+            function closeLightbox() {
+                elements.galleryLightbox.classList.remove("active");
+                if (document.fullscreenElement) {
+                    document.exitFullscreen().catch(() => {});
+                }
+            }
+
+            function toggleLightboxFullscreen() {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen().catch(() => {});
+                } else if (elements.galleryLightbox.requestFullscreen) {
+                    elements.galleryLightbox.requestFullscreen().catch(() => {});
+                }
             }
 
             function jumpToConfigurator(carId) {
@@ -2958,9 +3338,13 @@
                 elements.bookHeroBtn.addEventListener("click", () => document.getElementById("booking").scrollIntoView({ behavior: "smooth" }));
                 elements.saveBuildBtn.addEventListener("click", () => {
                     writeStorage(storageKeys.config, currentConfig);
+                    markBuildSaved();
                     showToast("Configuration saved locally.");
                 });
-                elements.addConfigCartBtn.addEventListener("click", () => addToCollection("cart", currentConfig));
+                elements.addConfigCartBtn.addEventListener("click", () => {
+                    addToCollection("cart", currentConfig);
+                    markBuildSaved();
+                });
                 elements.addConfigWishlistBtn.addEventListener("click", () => addToCollection("wishlist", currentConfig));
                 elements.bookingForm.addEventListener("submit", saveBooking);
                 elements.newsletterBtn.addEventListener("click", saveNewsletter);
@@ -3007,15 +3391,61 @@
                 }
                 if (elements.modalHeroImage) {
                     elements.modalHeroImage.addEventListener("click", (event) => {
-                        if (event.target.closest(".gallery-nav")) return;
-                        elements.modalHeroImage.classList.toggle("zoomed");
+                        if (event.target.closest(".gallery-nav") || event.target.closest(".gallery-expand")) return;
+                        openLightbox(modalGalleryIndex);
                     });
+                }
+                if (elements.galleryExpand) {
+                    elements.galleryExpand.addEventListener("click", () => openLightbox(modalGalleryIndex));
                 }
                 document.addEventListener("keydown", (event) => {
                     if (!elements.carModalOverlay.classList.contains("active")) return;
+                    if (elements.galleryLightbox.classList.contains("active")) return;
                     if (event.key === "ArrowLeft") setModalImage(modalGalleryIndex - 1);
                     if (event.key === "ArrowRight") setModalImage(modalGalleryIndex + 1);
                     if (event.key === "Escape") closeOverlay(elements.carModalOverlay);
+                });
+
+                elements.lightboxPrev.addEventListener("click", () => lightboxSetImage(lightboxIndex - 1));
+                elements.lightboxNext.addEventListener("click", () => lightboxSetImage(lightboxIndex + 1));
+                elements.lightboxClose.addEventListener("click", closeLightbox);
+                elements.lightboxZoomIn.addEventListener("click", () => setLightboxZoom(lightboxZoom + 0.3));
+                elements.lightboxZoomOut.addEventListener("click", () => setLightboxZoom(lightboxZoom - 0.3));
+                elements.lightboxFullscreen.addEventListener("click", toggleLightboxFullscreen);
+                elements.lightboxThumbs.addEventListener("click", (event) => {
+                    const thumb = event.target.closest("[data-lightbox-index]");
+                    if (thumb) lightboxSetImage(Number(thumb.dataset.lightboxIndex));
+                });
+                elements.lightboxStage.addEventListener("click", (event) => {
+                    if (event.target === elements.lightboxImage) {
+                        setLightboxZoom(lightboxZoom > 1 ? 1 : 2);
+                    } else {
+                        closeLightbox();
+                    }
+                });
+                elements.lightboxStage.addEventListener("wheel", (event) => {
+                    event.preventDefault();
+                    setLightboxZoom(lightboxZoom + (event.deltaY < 0 ? 0.2 : -0.2));
+                }, { passive: false });
+                elements.lightboxStage.addEventListener("touchstart", (event) => {
+                    lightboxTouchStartX = event.touches[0].clientX;
+                }, { passive: true });
+                elements.lightboxStage.addEventListener("touchend", (event) => {
+                    if (lightboxTouchStartX === null || lightboxZoom > 1) { lightboxTouchStartX = null; return; }
+                    const delta = event.changedTouches[0].clientX - lightboxTouchStartX;
+                    if (Math.abs(delta) > 50) {
+                        lightboxSetImage(lightboxIndex + (delta < 0 ? 1 : -1));
+                    }
+                    lightboxTouchStartX = null;
+                }, { passive: true });
+                document.addEventListener("keydown", (event) => {
+                    if (!elements.galleryLightbox.classList.contains("active")) return;
+                    if (event.key === "ArrowLeft") lightboxSetImage(lightboxIndex - 1);
+                    if (event.key === "ArrowRight") lightboxSetImage(lightboxIndex + 1);
+                    if (event.key === "Escape") closeLightbox();
+                    if (event.key === "+" || event.key === "=") setLightboxZoom(lightboxZoom + 0.3);
+                    if (event.key === "-" || event.key === "_") setLightboxZoom(lightboxZoom - 0.3);
+                    if (event.key === "f" || event.key === "F") toggleLightboxFullscreen();
                 });
 
                 elements.modalCartBtn.addEventListener("click", () => addToCollection("cart", getDefaultConfig(modalCarId)));
