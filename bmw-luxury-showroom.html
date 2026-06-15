@@ -724,6 +724,159 @@
             .topbar-inner { flex-wrap: wrap; }
             .booking-progress .step-label { display: none; }
         }
+
+        /* ====================== Light Full-Screen Configurator (Builder) ====================== */
+        .builder {
+            --b-bg: #f4f6f8; --b-surface: #ffffff; --b-surface-2: #f7f9fb; --b-line: #e2e6ec;
+            --b-ink: #16181d; --b-muted: #6a7280; --b-accent: #0066b1; --b-accent-2: #1c69d4; --b-soft: #eaf2fb;
+            background: var(--b-bg); color: var(--b-ink); border-radius: var(--radius-xl); overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.14); box-shadow: 0 40px 110px rgba(2,8,20,0.6);
+            font-family: var(--font-body); letter-spacing: 0;
+        }
+        .builder * { letter-spacing: 0; }
+        .builder h3, .builder h4 { font-family: var(--font-head); color: var(--b-ink); }
+
+        /* Top bar + steps */
+        .builder-top { display: flex; align-items: center; gap: 1rem; padding: 0.9rem 1.3rem; background: var(--b-surface); border-bottom: 1px solid var(--b-line); flex-wrap: wrap; }
+        .builder-brand { display: flex; align-items: center; gap: 0.6rem; }
+        .builder-mk { font-family: var(--font-head); font-weight: 800; font-size: 0.78rem; letter-spacing: 0.16em; color: #fff; background: var(--b-accent); padding: 0.28rem 0.55rem; border-radius: 6px; }
+        .builder-brand strong { font-family: var(--font-head); font-size: 1.05rem; color: var(--b-ink); }
+        .builder-steps { display: flex; gap: 0.25rem; overflow-x: auto; scrollbar-width: none; margin-left: auto; }
+        .builder-steps::-webkit-scrollbar { display: none; }
+        .builder-step { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.85rem; border-radius: 999px; border: 1px solid transparent; background: transparent; color: var(--b-muted); font-weight: 600; font-size: 0.8rem; white-space: nowrap; cursor: pointer; transition: all 0.25s var(--ease); font-family: var(--font-body); }
+        .builder-step .bs-idx { width: 21px; height: 21px; border-radius: 50%; display: grid; place-items: center; font-size: 0.7rem; background: #eef1f5; color: var(--b-muted); border: 1px solid var(--b-line); transition: all 0.25s var(--ease); }
+        .builder-step:hover { color: var(--b-ink); }
+        .builder-step.active { background: var(--b-soft); color: var(--b-accent); border-color: #cfe2f6; }
+        .builder-step.active .bs-idx { background: var(--b-accent); color: #fff; border-color: transparent; }
+        .builder-step.done { color: #1f9d57; }
+        .builder-step.done .bs-idx { background: #dff0e6; color: #1f9d57; border-color: transparent; }
+
+        /* Body grid */
+        .builder-body { display: grid; grid-template-columns: 3fr 1fr; min-height: 560px; }
+        .builder-view { position: relative; background: radial-gradient(circle at 50% 18%, #ffffff, #eef1f5 75%); display: flex; flex-direction: column; min-width: 0; }
+        .builder-view-toggles { position: absolute; top: 1.2rem; left: 1.2rem; z-index: 5; display: flex; flex-direction: column; gap: 0.5rem; }
+        .bv-toggle { display: flex; align-items: center; gap: 0.55rem; padding: 0.6rem 0.85rem; border-radius: 12px; border: 1px solid var(--b-line); background: rgba(255,255,255,0.9); color: var(--b-muted); font-weight: 600; font-size: 0.8rem; cursor: pointer; backdrop-filter: blur(6px); transition: all 0.2s var(--ease); box-shadow: 0 6px 18px rgba(20,30,50,0.08); }
+        .bv-toggle i { width: 16px; text-align: center; }
+        .bv-toggle:hover { color: var(--b-ink); transform: translateX(2px); }
+        .bv-toggle.active { background: var(--b-ink); color: #fff; border-color: var(--b-ink); }
+        .builder-stage { position: relative; flex: 1; display: grid; place-items: center; padding: 2.2rem 1.5rem 1rem; overflow: hidden; min-height: 360px; }
+        .builder .builder-stage #configImage { width: auto; max-width: 88%; max-height: 420px; height: auto; object-fit: contain; border-radius: 12px; transition: filter 0.5s var(--ease), transform 0.6s var(--ease); }
+        .builder .builder-stage:hover #configImage { transform: scale(1.02); }
+        .builder .light-glow { top: 60%; width: 70px; height: 22px; }
+        .builder .light-glow.left { left: 30%; }
+        .builder .light-glow.right { right: 30%; }
+        .builder-badges { position: absolute; top: 1.2rem; right: 1.2rem; display: flex; flex-direction: column; gap: 0.4rem; align-items: flex-end; z-index: 4; }
+        .builder-badge { display: flex; align-items: baseline; gap: 0.4rem; background: rgba(255,255,255,0.92); border: 1px solid var(--b-line); border-radius: 10px; padding: 0.35rem 0.7rem; box-shadow: 0 6px 16px rgba(20,30,50,0.08); }
+        .builder-badge b { font-family: var(--font-head); font-size: 0.92rem; color: var(--b-ink); }
+        .builder-badge span { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--b-muted); }
+        .builder-angles { display: flex; gap: 0.55rem; justify-content: center; padding: 0.4rem 1rem 1.3rem; flex-wrap: wrap; }
+        .builder-angle { width: 78px; height: 52px; border-radius: 9px; overflow: hidden; border: 2px solid transparent; cursor: pointer; background: #fff; padding: 0; transition: all 0.2s var(--ease); box-shadow: 0 4px 12px rgba(20,30,50,0.08); }
+        .builder-angle img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .builder-angle.active { border-color: var(--b-accent); }
+
+        /* Sidebar */
+        .builder-side { background: var(--b-surface); border-left: 1px solid var(--b-line); padding: 1.3rem; overflow-y: auto; max-height: 620px; display: flex; flex-direction: column; gap: 0.5rem; }
+        .builder-side::-webkit-scrollbar { width: 7px; }
+        .builder-side::-webkit-scrollbar-thumb { background: #d4dae2; border-radius: 99px; }
+        .builder-side-head { padding-bottom: 0.9rem; border-bottom: 1px solid var(--b-line); margin-bottom: 0.4rem; }
+        .builder-side-head h3 { font-size: 1.4rem; margin-bottom: 0.15rem; }
+        .builder-tagline { color: var(--b-muted); font-size: 0.85rem; margin-bottom: 0.7rem; }
+        .builder-side-price { display: flex; flex-direction: column; gap: 0.1rem; }
+        .builder-side-price > span { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--b-muted); }
+        .builder-side-price strong { font-family: var(--font-head); font-size: 1.5rem; color: var(--b-ink); }
+        .builder-side-price small { color: var(--b-muted); font-size: 0.72rem; }
+        .builder-pane { display: none; flex-direction: column; gap: 0.6rem; animation: fade 0.3s var(--ease); }
+        .builder-pane.active { display: flex; }
+        .pane-title { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--b-muted); margin: 0.6rem 0 0.1rem; }
+        .pane-title:first-of-type { margin-top: 0; }
+
+        /* Light option chips/cards inside builder */
+        .builder .selection-row { gap: 0.55rem; }
+        .builder .card-grid { display: grid; grid-template-columns: 1fr; gap: 0.55rem; }
+        .builder .swatch-grid { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+        .builder [data-config-type] { font-family: var(--font-body); cursor: pointer; transition: all 0.2s var(--ease); }
+        .builder .selection-chip, .builder .wheel-chip, .builder .interior-chip,
+        .builder .package-chip, .builder .toggle-chip, .builder .mode-chip, .builder .light-chip {
+            display: flex; flex-direction: column; gap: 0.18rem; text-align: left; width: 100%;
+            background: var(--b-surface-2); border: 1px solid var(--b-line); border-radius: 12px; padding: 0.75rem 0.9rem; color: var(--b-ink); font-weight: 600; font-size: 0.86rem;
+        }
+        .builder .selection-chip:hover, .builder .wheel-chip:hover, .builder .interior-chip:hover,
+        .builder .package-chip:hover, .builder .toggle-chip:hover, .builder .mode-chip:hover, .builder .light-chip:hover { border-color: #b9d4ee; background: #fff; }
+        .builder .selection-chip.active, .builder .wheel-chip.active, .builder .interior-chip.active,
+        .builder .package-chip.active, .builder .toggle-chip.active, .builder .mode-chip.active, .builder .light-chip.active {
+            border-color: var(--b-accent); background: var(--b-soft); box-shadow: inset 0 0 0 1px var(--b-accent);
+        }
+        .builder .opt-name { font-family: var(--font-head); font-size: 0.92rem; color: var(--b-ink); }
+        .builder .opt-meta { font-size: 0.74rem; color: var(--b-muted); font-weight: 500; }
+        .builder .toggle-chip, .builder .mode-chip, .builder .light-chip { flex-direction: row; align-items: center; gap: 0.55rem; }
+        .builder .mode-chip, .builder .light-chip { width: auto; }
+        .builder .light-chip .swatch, .builder .color-chip .swatch { width: 16px; height: 16px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.15); display: inline-block; flex-shrink: 0; }
+        /* Color swatches */
+        .builder .color-chip { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; width: 72px; background: transparent; border: none; padding: 0.2rem; color: var(--b-ink); font-weight: 600; }
+        .builder .color-chip .swatch { width: 44px; height: 44px; border: 2px solid #fff; box-shadow: 0 0 0 1px var(--b-line), 0 6px 14px rgba(20,30,50,0.12); transition: all 0.2s var(--ease); }
+        .builder .color-chip span:last-child { font-size: 0.68rem; color: var(--b-muted); text-align: center; line-height: 1.1; }
+        .builder .color-chip:hover .swatch { transform: scale(1.08); }
+        .builder .color-chip.active .swatch { box-shadow: 0 0 0 2px var(--b-accent), 0 6px 14px rgba(0,102,177,0.3); }
+        .builder .color-chip.active span:last-child { color: var(--b-accent); }
+
+        /* Price engine (light) */
+        .builder .price-engine { border: 1px solid var(--b-line); background: var(--b-surface-2); border-radius: 14px; }
+        .builder .price-engine h4 { color: var(--b-muted); }
+        .builder .price-row span { color: var(--b-muted); }
+        .builder .price-row strong, .builder .price-total strong { color: var(--b-ink); }
+        .builder .price-total { display: flex; justify-content: space-between; align-items: baseline; padding-top: 0.3rem; }
+        .builder .price-total strong { font-family: var(--font-head); font-size: 1.3rem; }
+        .builder .price-divider { height: 1px; background: var(--b-line); margin: 0.35rem 0; }
+        .builder .emi-pill { color: var(--b-accent-2); }
+        .builder .config-summary { border: 1px solid var(--b-line); background: var(--b-surface-2); border-radius: 14px; padding: 1rem; font-size: 0.84rem; color: var(--b-muted); margin-top: 0.7rem; line-height: 1.55; }
+        .builder .config-summary strong { color: var(--b-ink) !important; }
+        .builder-hidden-labels { display: none; }
+
+        /* Sticky footer price bar */
+        .builder-footer { position: sticky; bottom: 0; z-index: 20; display: flex; align-items: center; gap: 1.2rem; padding: 0.85rem 1.3rem; background: var(--b-surface); border-top: 1px solid var(--b-line); flex-wrap: wrap; box-shadow: 0 -10px 30px rgba(20,30,50,0.06); }
+        .bf-info { display: flex; flex-direction: column; gap: 0.1rem; }
+        .bf-info strong { font-family: var(--font-head); font-size: 1rem; color: var(--b-ink); }
+        .bf-emi { font-size: 0.76rem; color: var(--b-muted); }
+        .bf-emi b { color: var(--b-accent-2); }
+        .bf-total { display: flex; flex-direction: column; gap: 0.05rem; margin-left: 0.5rem; }
+        .bf-total span { font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--b-muted); }
+        .bf-total strong { font-family: var(--font-head); font-size: 1.35rem; color: var(--b-ink); }
+        .bf-actions { display: flex; gap: 0.55rem; margin-left: auto; flex-wrap: wrap; }
+        .bf-actions .btn { padding: 0.7rem 1.1rem; font-size: 0.85rem; }
+        .bf-share { padding: 0.7rem 0.9rem !important; }
+
+        /* Save configuration modal (light) */
+        .save-overlay { z-index: 1300; }
+        .save-card { position: relative; width: min(860px, 100%); max-height: 90vh; overflow-y: auto; display: grid; grid-template-columns: 1.1fr 0.9fr; background: #fff; color: var(--ink); border-radius: 24px; overflow: hidden; box-shadow: 0 50px 120px rgba(2,8,20,0.6); animation: pop 0.4s var(--ease); }
+        .save-close { position: absolute; top: 1rem; right: 1rem; z-index: 3; width: 38px; height: 38px; border-radius: 50%; border: 1px solid #e2e6ec; background: #fff; color: #16181d; cursor: pointer; font-size: 1rem; display: grid; place-items: center; }
+        .save-close:hover { background: #f1f3f6; }
+        .save-left { padding: 1.8rem; display: flex; flex-direction: column; }
+        .save-left .eyebrow { color: #0066b1; }
+        .save-left h3 { font-family: var(--font-head); font-size: 1.6rem; color: #16181d; margin: 0.2rem 0 1rem; }
+        .save-benefits { list-style: none; display: grid; gap: 0.6rem; margin: 0 0 1.1rem; padding: 0; }
+        .save-benefits li { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.88rem; color: #444a55; }
+        .save-benefits i { color: #1f9d57; margin-top: 0.15rem; }
+        .save-details { background: #f7f9fb; border: 1px solid #e2e6ec; border-radius: 14px; padding: 1rem; font-size: 0.82rem; color: #5a626e; line-height: 1.6; margin-bottom: 1.2rem; }
+        .save-details strong { color: #16181d; }
+        .save-actions { display: flex; gap: 0.6rem; margin-top: auto; flex-wrap: wrap; }
+        .save-right { background: linear-gradient(180deg, #eef1f5, #dfe5ec); display: grid; place-items: center; padding: 1.2rem; }
+        .save-right img { width: 100%; height: 100%; max-height: 420px; object-fit: cover; border-radius: 16px; }
+
+        @media (max-width: 980px) {
+            .builder-body { grid-template-columns: 1fr; }
+            .builder-side { max-height: none; border-left: none; border-top: 1px solid var(--b-line); }
+            .builder .card-grid { grid-template-columns: 1fr 1fr; }
+            .save-card { grid-template-columns: 1fr; }
+            .save-right { order: -1; min-height: 200px; }
+        }
+        @media (max-width: 620px) {
+            .builder-top { flex-direction: column; align-items: stretch; }
+            .builder-steps { margin-left: 0; }
+            .builder .card-grid { grid-template-columns: 1fr; }
+            .builder-footer { flex-direction: column; align-items: stretch; }
+            .bf-actions { margin-left: 0; }
+            .bf-actions .btn { flex: 1; }
+        }
     </style>
 </head>
 <body class="loading">
@@ -880,121 +1033,157 @@
                     <div class="icon-grid" id="featureGrid"></div>
                 </section>
 
-                <section class="section reveal" id="configurator">
+                <section class="section reveal builder-section" id="configurator">
                     <div class="section-header">
                         <div>
                             <div class="eyebrow">Advanced Configurator</div>
                             <h2 class="section-title">Build your BMW</h2>
                         </div>
-                        <p>Real-time color, wheels, interior, packages, technology, performance and lighting — with a live price engine.</p>
+                        <p>A full-screen, light studio builder &mdash; choose model, engine, variant, exterior, interior and packages with a live price engine.</p>
                     </div>
 
-                    <div class="workflow-bar" id="workflowBar" aria-label="Configuration workflow"></div>
-
-                    <div class="configurator-wrap">
-                        <div class="configurator-panel config-visual">
-                            <div class="config-stage">
-                                <img id="configImage" src="" alt="BMW configuration preview">
-                                <div class="light-glow left" id="leftLightGlow"></div>
-                                <div class="light-glow right" id="rightLightGlow"></div>
-                                <div class="config-floating">
-                                    <span class="floating-pill" id="configModelLabel">Model</span>
-                                    <span class="floating-pill" id="configColorLabel">Color</span>
-                                    <span class="floating-pill" id="configWheelLabel">Wheels</span>
-                                    <span class="floating-pill" id="configInteriorLabel">Interior</span>
-                                    <span class="floating-pill" id="configLightLabel">Lights</span>
-                                    <span class="floating-pill" id="configModeLabel">Mode</span>
-                                </div>
+                    <div class="builder" id="builderRoot">
+                        <div class="builder-top">
+                            <div class="builder-brand">
+                                <span class="builder-mk">BMW</span>
+                                <strong id="builderModelName">BMW iX</strong>
                             </div>
-                            <div class="viewer-actions">
-                                <button class="btn btn-primary" id="saveBuildBtn"><i class="fa-solid fa-bookmark"></i> Save Build</button>
-                                <button class="btn btn-dark" id="addConfigCartBtn"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-                                <button class="btn btn-secondary" id="addConfigWishlistBtn"><i class="fa-solid fa-heart"></i> Wishlist</button>
-                                <button class="btn btn-secondary" id="shareBuildBtn"><i class="fa-solid fa-share-nodes"></i> Share</button>
-                            </div>
-                            <div class="viewer-future">
-                                <span><i class="fa-solid fa-cube"></i> 360&deg; Viewer</span>
-                                <span><i class="fa-solid fa-vr-cardboard"></i> AR Preview</span>
-                                <span><i class="fa-solid fa-location-crosshairs"></i> Hotspots</span>
-                            </div>
+                            <div class="builder-steps" id="builderSteps" role="tablist" aria-label="Configuration steps"></div>
                         </div>
 
-                        <div class="configurator-panel config-detail">
-                            <div>
-                                <div class="eyebrow">Configuration Studio</div>
-                                <h3 id="configModelName" class="section-title" style="font-size:1.9rem;"></h3>
-                                <p id="configTagline" class="muted" style="margin-top:0.4rem;"></p>
-                            </div>
-
-                            <div class="pricing-box" id="pricingBox">
-                                <span class="muted">Estimated price</span>
-                                <div class="pricing-value" id="configPrice"></div>
-                                <span id="configPriceNote" class="muted">Includes selected options and showroom luxury package.</span>
-                            </div>
-
-                            <details class="config-acc" open>
-                                <summary><span>Model <span class="acc-meta" id="accModelMeta"></span></span><i class="fa-solid fa-chevron-down chevron"></i></summary>
-                                <div class="acc-body selection-group"><div class="selection-row" id="configModelOptions"></div></div>
-                            </details>
-
-                            <details class="config-acc" open>
-                                <summary><span>Exterior Color</span><i class="fa-solid fa-chevron-down chevron"></i></summary>
-                                <div class="acc-body selection-group"><div class="selection-row" id="configColorOptions"></div></div>
-                            </details>
-
-                            <details class="config-acc">
-                                <summary><span>Wheels</span><i class="fa-solid fa-chevron-down chevron"></i></summary>
-                                <div class="acc-body selection-group"><div class="selection-row" id="configWheelOptions"></div></div>
-                            </details>
-
-                            <details class="config-acc">
-                                <summary><span>Interior</span><i class="fa-solid fa-chevron-down chevron"></i></summary>
-                                <div class="acc-body selection-group"><div class="selection-row" id="configInteriorOptions"></div></div>
-                            </details>
-
-                            <details class="config-acc">
-                                <summary><span>Packages</span><i class="fa-solid fa-chevron-down chevron"></i></summary>
-                                <div class="acc-body selection-group"><div class="selection-row" id="configPackageOptions"></div></div>
-                            </details>
-
-                            <details class="config-acc">
-                                <summary><span>Technology</span><i class="fa-solid fa-chevron-down chevron"></i></summary>
-                                <div class="acc-body selection-group"><div class="selection-row" id="configTechOptions"></div></div>
-                            </details>
-
-                            <details class="config-acc">
-                                <summary><span>Performance</span><i class="fa-solid fa-chevron-down chevron"></i></summary>
-                                <div class="acc-body selection-group"><div class="selection-row" id="configPerfOptions"></div></div>
-                            </details>
-
-                            <details class="config-acc">
-                                <summary><span>Lighting &amp; Preview</span><i class="fa-solid fa-chevron-down chevron"></i></summary>
-                                <div class="acc-body" style="display:grid;gap:1rem;">
-                                    <div class="selection-group"><h4>Headlight animation</h4><div class="selection-row" id="configLightOptions"></div></div>
-                                    <div class="selection-group"><h4>Day / Night preview</h4><div class="selection-row" id="configModeOptions"></div></div>
+                        <div class="builder-body">
+                            <div class="builder-view">
+                                <div class="builder-view-toggles" id="builderViewToggles">
+                                    <button class="bv-toggle active" data-view="exterior" type="button"><i class="fa-solid fa-car-side"></i><span>Exterior</span></button>
+                                    <button class="bv-toggle" data-view="interior" type="button"><i class="fa-solid fa-couch"></i><span>Interior</span></button>
+                                    <button class="bv-toggle" data-view="lights" type="button"><i class="fa-solid fa-lightbulb"></i><span>Lights</span></button>
                                 </div>
-                            </details>
-
-                            <div class="price-engine">
-                                <h4>Price Engine</h4>
-                                <div class="price-row"><span>Base price</span><strong id="configBasePrice">-</strong></div>
-                                <div class="price-row"><span>Selected options</span><strong id="configOptionsPrice">-</strong></div>
-                                <div class="price-row"><span>Packages</span><strong id="configPackagesPrice">-</strong></div>
-                                <div class="price-row"><span>Technology</span><strong id="configTechPrice">-</strong></div>
-                                <div class="price-row"><span>Performance</span><strong id="configPerfPrice">-</strong></div>
-                                <div class="price-divider"></div>
-                                <div class="price-row muted-row"><span>Registration</span><strong id="configRegistration">-</strong></div>
-                                <div class="price-row muted-row"><span>Insurance</span><strong id="configInsurance">-</strong></div>
-                                <div class="price-row muted-row"><span>Taxes (TCS)</span><strong id="configTaxes">-</strong></div>
-                                <div class="price-divider"></div>
-                                <div class="price-total">
-                                    <span>On-road total</span>
-                                    <strong id="configTotalPrice">-</strong>
+                                <div class="builder-stage">
+                                    <img id="configImage" src="" alt="BMW configuration preview">
+                                    <div class="light-glow left" id="leftLightGlow"></div>
+                                    <div class="light-glow right" id="rightLightGlow"></div>
+                                    <div class="builder-badges" id="builderBadges"></div>
                                 </div>
-                                <div class="price-row"><span>Estimated EMI</span><span class="emi-pill" id="configEmi">-</span></div>
+                                <div class="builder-angles" id="builderAngles"></div>
+                                <div class="builder-hidden-labels" aria-hidden="true">
+                                    <span id="configModelLabel"></span><span id="configColorLabel"></span>
+                                    <span id="configWheelLabel"></span><span id="configInteriorLabel"></span>
+                                    <span id="configLightLabel"></span><span id="configModeLabel"></span>
+                                </div>
                             </div>
 
-                            <div class="config-summary" id="configSummary"></div>
+                            <aside class="builder-side">
+                                <div class="builder-side-head">
+                                    <h3 id="configModelName"></h3>
+                                    <p class="builder-tagline" id="configTagline"></p>
+                                    <div class="builder-side-price">
+                                        <span>Ex-showroom from</span>
+                                        <strong id="configPrice"></strong>
+                                        <small id="configPriceNote"></small>
+                                    </div>
+                                </div>
+
+                                <div class="builder-pane active" data-pane="model">
+                                    <h4 class="pane-title">Choose your model</h4>
+                                    <div class="selection-row card-grid" id="configModelOptions"></div>
+                                </div>
+
+                                <div class="builder-pane" data-pane="engine" hidden>
+                                    <h4 class="pane-title">Select engine</h4>
+                                    <div class="selection-row card-grid" id="configEngineOptions"></div>
+                                </div>
+
+                                <div class="builder-pane" data-pane="variant" hidden>
+                                    <h4 class="pane-title">Select variant</h4>
+                                    <div class="selection-row card-grid" id="configVariantOptions"></div>
+                                </div>
+
+                                <div class="builder-pane" data-pane="exterior" hidden>
+                                    <h4 class="pane-title">Exterior colour</h4>
+                                    <div class="selection-row swatch-grid" id="configColorOptions"></div>
+                                    <h4 class="pane-title">Wheels</h4>
+                                    <div class="selection-row card-grid" id="configWheelOptions"></div>
+                                    <h4 class="pane-title">Exterior packages</h4>
+                                    <div class="selection-row card-grid" id="configExteriorPackages"></div>
+                                    <h4 class="pane-title">Headlight signature</h4>
+                                    <div class="selection-row" id="configLightOptions"></div>
+                                    <h4 class="pane-title">Day / Night preview</h4>
+                                    <div class="selection-row" id="configModeOptions"></div>
+                                </div>
+
+                                <div class="builder-pane" data-pane="interior" hidden>
+                                    <h4 class="pane-title">Upholstery &amp; trim</h4>
+                                    <div class="selection-row card-grid" id="configInteriorOptions"></div>
+                                </div>
+
+                                <div class="builder-pane" data-pane="packages" hidden>
+                                    <h4 class="pane-title">Packages</h4>
+                                    <div class="selection-row card-grid" id="configPackageOptions"></div>
+                                    <h4 class="pane-title">Technology</h4>
+                                    <div class="selection-row card-grid" id="configTechOptions"></div>
+                                    <h4 class="pane-title">Performance</h4>
+                                    <div class="selection-row card-grid" id="configPerfOptions"></div>
+                                </div>
+
+                                <div class="builder-pane" data-pane="summary" hidden>
+                                    <div class="price-engine" id="pricingBox">
+                                        <h4>Price engine</h4>
+                                        <div class="price-row"><span>Base price</span><strong id="configBasePrice">-</strong></div>
+                                        <div class="price-row"><span>Selected options</span><strong id="configOptionsPrice">-</strong></div>
+                                        <div class="price-row"><span>Packages</span><strong id="configPackagesPrice">-</strong></div>
+                                        <div class="price-row"><span>Technology</span><strong id="configTechPrice">-</strong></div>
+                                        <div class="price-row"><span>Performance</span><strong id="configPerfPrice">-</strong></div>
+                                        <div class="price-divider"></div>
+                                        <div class="price-row muted-row"><span>Registration</span><strong id="configRegistration">-</strong></div>
+                                        <div class="price-row muted-row"><span>Insurance</span><strong id="configInsurance">-</strong></div>
+                                        <div class="price-row muted-row"><span>Taxes (TCS)</span><strong id="configTaxes">-</strong></div>
+                                        <div class="price-divider"></div>
+                                        <div class="price-total"><span>On-road total</span><strong id="configTotalPrice">-</strong></div>
+                                        <div class="price-row"><span>Estimated EMI</span><span class="emi-pill" id="configEmi">-</span></div>
+                                    </div>
+                                    <div class="config-summary" id="configSummary"></div>
+                                </div>
+                            </aside>
+                        </div>
+
+                        <div class="builder-footer">
+                            <div class="bf-info">
+                                <strong id="builderFooterName">BMW iX</strong>
+                                <span class="bf-emi">EMI <b id="builderFooterEmi">-</b></span>
+                            </div>
+                            <div class="bf-total">
+                                <span>Total price</span>
+                                <strong id="builderFooterTotal">-</strong>
+                            </div>
+                            <div class="bf-actions">
+                                <button class="btn btn-primary" id="saveConfigBtn"><i class="fa-solid fa-bookmark"></i> Save Configuration</button>
+                                <button class="btn btn-dark" id="addConfigCartBtn"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                                <button class="btn btn-secondary" id="addConfigWishlistBtn"><i class="fa-solid fa-heart"></i> Wishlist</button>
+                                <button class="btn btn-secondary bf-share" id="shareBuildBtn" title="Share build"><i class="fa-solid fa-share-nodes"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="overlay save-overlay" id="saveConfigOverlay">
+                        <div class="save-card">
+                            <button class="save-close" id="saveModalClose" type="button" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                            <div class="save-left">
+                                <div class="eyebrow">Save configuration</div>
+                                <h3 id="saveModalTitle">Save your BMW</h3>
+                                <ul class="save-benefits">
+                                    <li><i class="fa-solid fa-check"></i> Resume your build anytime from Saved Garage</li>
+                                    <li><i class="fa-solid fa-check"></i> Share the full specification with your dealer</li>
+                                    <li><i class="fa-solid fa-check"></i> Track price and offers on this configuration</li>
+                                </ul>
+                                <div class="save-details" id="saveModalDetails"></div>
+                                <div class="save-actions">
+                                    <button class="btn btn-primary" id="saveModalConfirm" type="button"><i class="fa-solid fa-bookmark"></i> Save Configuration</button>
+                                    <button class="btn btn-secondary" id="saveModalContinue" type="button">Continue Configuring</button>
+                                </div>
+                            </div>
+                            <div class="save-right">
+                                <img id="saveModalImage" src="" alt="Saved BMW configuration">
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -1377,7 +1566,9 @@
                     family: "Luxury SUV",
                     priceValue: 13950000,
                     priceLabel: "Rs. 1.395 Cr",
-                    power: "523 hp",
+                    power: "523 PS",
+                    torque: "765 Nm",
+                    topSpeed: "200 km/h",
                     range: "635 km",
                     acceleration: "4.6 sec",
                     tagline: "Progressive electric SUV design with long-range confidence.",
@@ -1389,20 +1580,34 @@
                         "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
                         "https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=1200&q=80"
                     ],
+                    interiorGallery: [
+                        "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1200&q=80",
+                        "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+                        "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80"
+                    ],
+                    engines: [
+                        { id: "xdrive50", name: "xDrive50", price: 0, detail: "523 PS · 635 km range · 4.6s 0-100" },
+                        { id: "m60", name: "M60 Performance", price: 1750000, detail: "619 PS · 561 km range · 3.8s 0-100" }
+                    ],
+                    variants: [
+                        { id: "exclusive", name: "Exclusive", price: 0, detail: "Sky Lounge, panoramic roof, Comfort access." },
+                        { id: "msportpro", name: "M Sport Pro", price: 420000, detail: "M aerodynamics, Shadowline, sport seats." }
+                    ],
                     colors: [
                         { id: "storm-bay", name: "Storm Bay", hex: "#8ea9c4", price: 0, image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1200&q=80" },
                         { id: "frozen-black", name: "Frozen Black", hex: "#2a2f35", price: 180000, image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80" },
-                        { id: "arctic-blue", name: "Arctic Blue", hex: "#79aef6", price: 220000, image: "https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=1200&q=80" }
+                        { id: "arctic-blue", name: "Arctic Blue", hex: "#79aef6", price: 220000, image: "https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=1200&q=80" },
+                        { id: "mineral-white", name: "Mineral White", hex: "#eef2f5", price: 160000, image: "https://images.unsplash.com/photo-1556189250-72ba954cfc2b?auto=format&fit=crop&w=1200&q=80" }
                     ],
                     wheels: [
-                        { id: "aero-21", name: "21in Aero", price: 0 },
+                        { id: "aero-21", name: "21in Aerodynamic", price: 0 },
                         { id: "sport-22", name: "22in Sport", price: 210000 },
                         { id: "shadow-22", name: "22in Shadow", price: 240000 }
                     ],
                     interiors: [
-                        { id: "stonegrey", name: "Stone Grey", price: 0 },
-                        { id: "mocha", name: "Mocha", price: 125000 },
-                        { id: "black-microfiber", name: "Black Microfiber", price: 155000 }
+                        { id: "stonegrey", name: "Castanea Stone Grey", price: 0, image: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1200&q=80" },
+                        { id: "mocha", name: "Amido / Mocha", price: 125000, image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80" },
+                        { id: "black-microfiber", name: "Black Alcantara", price: 155000, image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80" }
                     ]
                 },
                 {
@@ -1978,8 +2183,11 @@
                 { id: "comfort", name: "Comfort Package", price: 450000, summary: "4-zone climate, soft-close doors, comfort access." },
                 { id: "technology", name: "Technology Package", price: 650000, summary: "Driving Assistant Pro, Parking Pro, Head-Up Display." },
                 { id: "sport", name: "Sport Package", price: 750000, summary: "M aerodynamics, sport seats, adaptive dampers." },
-                { id: "msport", name: "M Sport Package", price: 980000, summary: "M aero kit, M Sport suspension, M leather wheel, shadowline trim." }
+                { id: "msport", name: "M Sport Package", price: 980000, summary: "M aero kit, M Sport suspension, M leather wheel, shadowline trim." },
+                { id: "shadowline", name: "Shadow Line Package", price: 120000, summary: "High-gloss black exterior trim, kidney grille surround and badges." }
             ];
+
+            const exteriorPackageIds = ["msport", "luxury", "executive", "shadowline"];
 
             const techOptions = [
                 { id: "acc", name: "Adaptive Cruise Control", price: 185000 },
@@ -2034,8 +2242,11 @@
                 configPrice: document.getElementById("configPrice"),
                 configPriceNote: document.getElementById("configPriceNote"),
                 configModelOptions: document.getElementById("configModelOptions"),
+                configEngineOptions: document.getElementById("configEngineOptions"),
+                configVariantOptions: document.getElementById("configVariantOptions"),
                 configColorOptions: document.getElementById("configColorOptions"),
                 configWheelOptions: document.getElementById("configWheelOptions"),
+                configExteriorPackages: document.getElementById("configExteriorPackages"),
                 configInteriorOptions: document.getElementById("configInteriorOptions"),
                 configLightOptions: document.getElementById("configLightOptions"),
                 configModeOptions: document.getElementById("configModeOptions"),
@@ -2045,6 +2256,22 @@
                 configPerfOptions: document.getElementById("configPerfOptions"),
                 accModelMeta: document.getElementById("accModelMeta"),
                 pricingBox: document.getElementById("pricingBox"),
+                builderRoot: document.getElementById("builderRoot"),
+                builderSteps: document.getElementById("builderSteps"),
+                builderModelName: document.getElementById("builderModelName"),
+                builderViewToggles: document.getElementById("builderViewToggles"),
+                builderBadges: document.getElementById("builderBadges"),
+                builderAngles: document.getElementById("builderAngles"),
+                builderFooterName: document.getElementById("builderFooterName"),
+                builderFooterEmi: document.getElementById("builderFooterEmi"),
+                builderFooterTotal: document.getElementById("builderFooterTotal"),
+                saveConfigBtn: document.getElementById("saveConfigBtn"),
+                saveConfigOverlay: document.getElementById("saveConfigOverlay"),
+                saveModalClose: document.getElementById("saveModalClose"),
+                saveModalDetails: document.getElementById("saveModalDetails"),
+                saveModalImage: document.getElementById("saveModalImage"),
+                saveModalConfirm: document.getElementById("saveModalConfirm"),
+                saveModalContinue: document.getElementById("saveModalContinue"),
                 configBasePrice: document.getElementById("configBasePrice"),
                 configOptionsPrice: document.getElementById("configOptionsPrice"),
                 configPackagesPrice: document.getElementById("configPackagesPrice"),
@@ -2056,7 +2283,6 @@
                 configTotalPrice: document.getElementById("configTotalPrice"),
                 configEmi: document.getElementById("configEmi"),
                 garageGrid: document.getElementById("garageGrid"),
-                saveBuildBtn: document.getElementById("saveBuildBtn"),
                 addConfigCartBtn: document.getElementById("addConfigCartBtn"),
                 addConfigWishlistBtn: document.getElementById("addConfigWishlistBtn"),
                 shareBuildBtn: document.getElementById("shareBuildBtn"),
@@ -2152,10 +2378,27 @@
                 return cars.find((car) => car.id === carId);
             }
 
+            function getEngines(car) {
+                if (car.engines && car.engines.length) {
+                    return car.engines;
+                }
+                const isElectric = car.category === "electric";
+                return [{ id: "standard", name: car.power, price: 0, detail: `${isElectric ? "Electric drive" : "Combustion engine"} · ${car.range}` }];
+            }
+
+            function getVariants(car) {
+                if (car.variants && car.variants.length) {
+                    return car.variants;
+                }
+                return [{ id: "base", name: car.family, price: 0, detail: car.tagline }];
+            }
+
             function getDefaultConfig(carId) {
                 const car = getCarById(carId);
                 return {
                     carId,
+                    engineId: getEngines(car)[0].id,
+                    variantId: getVariants(car)[0].id,
                     colorId: car.colors[0].id,
                     wheelId: car.wheels[0].id,
                     interiorId: car.interiors[0].id,
@@ -2172,13 +2415,18 @@
                     return null;
                 }
 
+                const car = getCarById(item.carId);
                 const fallback = getDefaultConfig(item.carId);
                 const cleanIds = (value, source) => Array.isArray(value)
                     ? value.filter((id) => source.some((opt) => opt.id === id))
                     : [];
                 const packageId = packages.some((p) => p.id === item.packageId) ? item.packageId : null;
+                const engineId = getEngines(car).some((e) => e.id === item.engineId) ? item.engineId : fallback.engineId;
+                const variantId = getVariants(car).some((v) => v.id === item.variantId) ? item.variantId : fallback.variantId;
                 return {
                     carId: item.carId,
+                    engineId,
+                    variantId,
                     colorId: item.colorId || fallback.colorId,
                     wheelId: item.wheelId || fallback.wheelId,
                     interiorId: item.interiorId || fallback.interiorId,
@@ -2223,6 +2471,18 @@
             let lightboxZoom = 1;
             let lightboxTouchStartX = null;
             let workflowSavedSignature = null;
+            let builderView = "exterior";
+            let builderImageOverride = null;
+            let activeStep = "model";
+            const builderStepDefs = [
+                { id: "model", label: "Change Model", view: "exterior", done: (c) => Boolean(c.carId) },
+                { id: "engine", label: "Engine", view: "exterior", done: (c) => Boolean(c.engineId) },
+                { id: "variant", label: "Variant", view: "exterior", done: (c) => Boolean(c.variantId) },
+                { id: "exterior", label: "Exterior", view: "exterior", done: (c) => Boolean(c.colorId && c.wheelId) },
+                { id: "interior", label: "Interior", view: "interior", done: (c) => Boolean(c.interiorId) },
+                { id: "packages", label: "Packages & Options", view: "exterior", done: (c) => Boolean(c.packageId) || (c.tech || []).length > 0 || (c.performance || []).length > 0 },
+                { id: "summary", label: "Summary", view: "exterior", done: () => workflowSavedSignature === configSignature(currentConfig) }
+            ];
             const lightPresets = {
                 off: null,
                 ice: "#9ed8ff",
@@ -2293,6 +2553,8 @@
                     return ax.length === ay.length && ax.every((value, index) => value === ay[index]);
                 };
                 return a.carId === b.carId &&
+                    (a.engineId || null) === (b.engineId || null) &&
+                    (a.variantId || null) === (b.variantId || null) &&
                     a.colorId === b.colorId &&
                     a.wheelId === b.wheelId &&
                     a.interiorId === b.interiorId &&
@@ -2305,6 +2567,27 @@
 
             function getSelectedPackage(packageId) {
                 return packages.find((item) => item.id === packageId) || null;
+            }
+
+            function getSelectedEngine(car, engineId) {
+                const list = getEngines(car);
+                return list.find((item) => item.id === engineId) || list[0];
+            }
+
+            function getSelectedVariant(car, variantId) {
+                const list = getVariants(car);
+                return list.find((item) => item.id === variantId) || list[0];
+            }
+
+            function getInteriorImage(car, interior) {
+                return (interior && interior.image) || (car.interiorGallery && car.interiorGallery[0]) || car.heroImage;
+            }
+
+            function getInteriorViews(car) {
+                if (car.interiorGallery && car.interiorGallery.length) {
+                    return car.interiorGallery;
+                }
+                return car.interiors.map((interior) => interior.image).filter(Boolean);
             }
 
             function sumOptionPrices(ids, source) {
@@ -2335,9 +2618,11 @@
                 const color = getSelectedColor(car, config.colorId);
                 const wheel = getSelectedWheel(car, config.wheelId);
                 const interior = getSelectedInterior(car, config.interiorId);
+                const engine = getSelectedEngine(car, config.engineId);
+                const variant = getSelectedVariant(car, config.variantId);
                 const lightPremium = config.lightMode === "off" ? 0 : 35000;
                 const nightPremium = config.previewMode === "night" ? 15000 : 0;
-                const optionsTotal = color.price + wheel.price + interior.price + lightPremium + nightPremium;
+                const optionsTotal = engine.price + variant.price + color.price + wheel.price + interior.price + lightPremium + nightPremium;
                 const selectedPackage = getSelectedPackage(config.packageId);
                 const packagesTotal = selectedPackage ? selectedPackage.price : 0;
                 const techTotal = sumOptionPrices(config.tech, techOptions);
@@ -2488,51 +2773,59 @@
                 const color = getSelectedColor(car, currentConfig.colorId);
                 const wheel = getSelectedWheel(car, currentConfig.wheelId);
                 const interior = getSelectedInterior(car, currentConfig.interiorId);
-                const lightColor = lightPresets[currentConfig.lightMode];
+                const engine = getSelectedEngine(car, currentConfig.engineId);
+                const variant = getSelectedVariant(car, currentConfig.variantId);
                 const breakdown = getPriceBreakdown(currentConfig);
                 const price = breakdown.exShowroom;
                 const selectedPackage = getSelectedPackage(currentConfig.packageId);
 
-                elements.configImage.src = color.image || car.heroImage;
-                elements.configImage.alt = `${car.name} in ${color.name}`;
-                elements.configImage.style.filter = currentConfig.previewMode === "night" ? "brightness(0.74) saturate(0.95)" : "none";
                 elements.configModelLabel.textContent = `Model: ${car.name}`;
                 elements.configColorLabel.textContent = `Color: ${color.name}`;
                 elements.configWheelLabel.textContent = `Wheels: ${wheel.name}`;
                 elements.configInteriorLabel.textContent = `Interior: ${interior.name}`;
                 elements.configLightLabel.textContent = currentConfig.lightMode === "off" ? "Lights: Off" : `Lights: ${currentConfig.lightMode}`;
                 elements.configModeLabel.textContent = `Preview: ${currentConfig.previewMode}`;
+
                 elements.configModelName.textContent = car.name;
                 elements.configTagline.textContent = car.tagline;
                 elements.configPrice.textContent = formatCurrency(price);
-                elements.configPriceNote.textContent = `Ex-showroom from base ${car.priceLabel}, including selected options, packages, technology and performance.`;
-                if (elements.accModelMeta) {
-                    elements.accModelMeta.textContent = car.name;
+                elements.configPriceNote.textContent = `Including engine, variant, options, packages, and technology.`;
+                if (elements.builderModelName) {
+                    elements.builderModelName.textContent = car.name;
                 }
+
                 const techNames = (currentConfig.tech || []).map((id) => techOptions.find((opt) => opt.id === id).name);
                 const perfNames = (currentConfig.performance || []).map((id) => perfOptions.find((opt) => opt.id === id).name);
                 elements.configSummary.innerHTML = `
-                    <strong style="display:block;color:var(--ink);margin-bottom:0.35rem;">Saved BMW configuration</strong>
-                    ${car.name} in ${color.name} with ${wheel.name}, ${interior.name} interior, headlights ${currentConfig.lightMode === "off" ? "off" : currentConfig.lightMode}, and ${currentConfig.previewMode} preview mode.
+                    <strong>Your BMW ${car.name} build</strong><br>
+                    Engine: ${engine.name}, Variant: ${variant.name}.<br>
+                    ${color.name}, ${wheel.name} wheels, ${interior.name} interior.
                     ${selectedPackage ? `<br>Package: ${selectedPackage.name}.` : ""}
                     ${techNames.length ? `<br>Technology: ${techNames.join(", ")}.` : ""}
                     ${perfNames.length ? `<br>Performance: ${perfNames.join(", ")}.` : ""}
                 `;
 
-                [elements.leftLightGlow, elements.rightLightGlow].forEach((light) => {
-                    const active = Boolean(lightColor);
-                    light.classList.toggle("active", active);
-                    if (active) {
-                        light.style.background = lightColor;
-                        light.style.boxShadow = `0 0 26px 10px ${lightColor}`;
-                    } else {
-                        light.style.background = "transparent";
-                        light.style.boxShadow = "none";
-                    }
-                });
-
                 elements.configModelOptions.innerHTML = cars.map((item) => `
-                    <button class="selection-chip ${item.id === currentConfig.carId ? "active" : ""}" data-config-type="model" data-value="${item.id}">${item.name}</button>
+                    <button class="selection-chip ${item.id === currentConfig.carId ? "active" : ""}" data-config-type="model" data-value="${item.id}">
+                        <span class="opt-name">${item.name}</span>
+                        <span class="opt-meta">${item.family} &middot; ${item.priceLabel}</span>
+                    </button>
+                `).join("");
+
+                elements.configEngineOptions.innerHTML = getEngines(car).map((item) => `
+                    <button class="selection-chip ${item.id === currentConfig.engineId ? "active" : ""}" data-config-type="engine" data-value="${item.id}">
+                        <span class="opt-name">${item.name}</span>
+                        <span class="opt-meta">${item.detail}</span>
+                        ${item.price ? `<span class="opt-meta">+ ${formatCurrency(item.price)}</span>` : ""}
+                    </button>
+                `).join("");
+
+                elements.configVariantOptions.innerHTML = getVariants(car).map((item) => `
+                    <button class="selection-chip ${item.id === currentConfig.variantId ? "active" : ""}" data-config-type="variant" data-value="${item.id}">
+                        <span class="opt-name">${item.name}</span>
+                        <span class="opt-meta">${item.detail}</span>
+                        ${item.price ? `<span class="opt-meta">+ ${formatCurrency(item.price)}</span>` : ""}
+                    </button>
                 `).join("");
 
                 elements.configColorOptions.innerHTML = car.colors.map((item) => `
@@ -2543,11 +2836,25 @@
                 `).join("");
 
                 elements.configWheelOptions.innerHTML = car.wheels.map((item) => `
-                    <button class="wheel-chip ${item.id === currentConfig.wheelId ? "active" : ""}" data-config-type="wheel" data-value="${item.id}">${item.name}</button>
+                    <button class="wheel-chip ${item.id === currentConfig.wheelId ? "active" : ""}" data-config-type="wheel" data-value="${item.id}">
+                        <span class="opt-name">${item.name}</span>
+                        ${item.price ? `<span class="opt-meta">+ ${formatCurrency(item.price)}</span>` : `<span class="opt-meta">Included</span>`}
+                    </button>
+                `).join("");
+
+                elements.configExteriorPackages.innerHTML = packages.filter((p) => exteriorPackageIds.includes(p.id)).map((item) => `
+                    <button class="package-chip ${item.id === currentConfig.packageId ? "active" : ""}" data-config-type="package" data-value="${item.id}">
+                        <span class="opt-name">${item.name}</span>
+                        <span class="opt-meta">${item.summary}</span>
+                        <span class="opt-meta">+ ${formatCurrency(item.price)}</span>
+                    </button>
                 `).join("");
 
                 elements.configInteriorOptions.innerHTML = car.interiors.map((item) => `
-                    <button class="interior-chip ${item.id === currentConfig.interiorId ? "active" : ""}" data-config-type="interior" data-value="${item.id}">${item.name}</button>
+                    <button class="interior-chip ${item.id === currentConfig.interiorId ? "active" : ""}" data-config-type="interior" data-value="${item.id}">
+                        <span class="opt-name">${item.name}</span>
+                        ${item.price ? `<span class="opt-meta">+ ${formatCurrency(item.price)}</span>` : `<span class="opt-meta">Included</span>`}
+                    </button>
                 `).join("");
 
                 const lightOptions = [
@@ -2564,10 +2871,6 @@
                         <span>${item.label}</span>
                     </button>
                 `).join("");
-
-                ["day", "night"].forEach((mode) => {
-                    // noop
-                });
 
                 elements.configModeOptions.innerHTML = `
                     <button class="mode-chip ${currentConfig.previewMode === "day" ? "active" : ""}" data-config-type="mode" data-value="day">Day Mode</button>
@@ -2612,15 +2915,130 @@
                     window.setTimeout(() => elements.pricingBox.classList.remove("pulse"), 320);
                 }
 
+                renderBuilderViewer(car, color, interior);
+                renderBuilderSteps();
+                updateBuilderFooter(car, breakdown);
                 renderWorkflow();
-
                 writeStorage(storageKeys.config, currentConfig);
                 renderGarage();
+            }
+
+            function renderBuilderViewer(car, color, interior) {
+                const lightColor = lightPresets[currentConfig.lightMode];
+                let img;
+                let nightMode = false;
+
+                if (builderView === "interior") {
+                    img = builderImageOverride || getInteriorImage(car, interior);
+                } else if (builderView === "lights") {
+                    img = builderImageOverride || color.image || car.heroImage;
+                    nightMode = true;
+                } else {
+                    img = builderImageOverride || color.image || car.heroImage;
+                    nightMode = currentConfig.previewMode === "night";
+                }
+
+                elements.configImage.src = img;
+                elements.configImage.alt = `${car.name} - ${builderView}`;
+                elements.configImage.style.filter = nightMode ? "brightness(0.7) saturate(1.05)" : "none";
+
+                const showGlow = nightMode || builderView === "lights";
+                const glowColor = showGlow ? (lightColor || "#9ed8ff") : null;
+                [elements.leftLightGlow, elements.rightLightGlow].forEach((el) => {
+                    el.classList.toggle("active", Boolean(glowColor));
+                    if (glowColor) {
+                        el.style.background = glowColor;
+                        el.style.boxShadow = `0 0 26px 10px ${glowColor}`;
+                    } else {
+                        el.style.background = "transparent";
+                        el.style.boxShadow = "none";
+                    }
+                });
+
+                const angles = builderView === "interior" ? getInteriorViews(car) : car.gallery;
+                if (elements.builderAngles && angles.length) {
+                    elements.builderAngles.innerHTML = angles.map((src, idx) => `
+                        <button class="builder-angle ${src === img ? "active" : ""}" data-angle-idx="${idx}" type="button">
+                            <img src="${src}" alt="View ${idx + 1}" loading="lazy">
+                        </button>
+                    `).join("");
+                }
+
+                if (elements.builderBadges) {
+                    const badges = [];
+                    if (car.power) badges.push({ label: "Power", value: car.power });
+                    if (car.torque) badges.push({ label: "Torque", value: car.torque });
+                    if (car.topSpeed) badges.push({ label: "Top Speed", value: car.topSpeed });
+                    if (car.acceleration) badges.push({ label: "0-100", value: car.acceleration });
+                    if (car.range) badges.push({ label: "Range", value: car.range });
+                    elements.builderBadges.innerHTML = badges.map((b) => `
+                        <div class="builder-badge"><b>${b.value}</b><span>${b.label}</span></div>
+                    `).join("");
+                }
+
+                if (elements.builderViewToggles) {
+                    elements.builderViewToggles.querySelectorAll(".bv-toggle").forEach((btn) => {
+                        btn.classList.toggle("active", btn.dataset.view === builderView);
+                    });
+                }
+            }
+
+            function renderBuilderSteps() {
+                if (!elements.builderSteps) return;
+                const activeIdx = builderStepDefs.findIndex((s) => s.id === activeStep);
+                elements.builderSteps.innerHTML = builderStepDefs.map((step, idx) => {
+                    const isDone = idx < activeIdx;
+                    const isActive = idx === activeIdx;
+                    const cls = isDone ? "done" : (isActive ? "active" : "");
+                    const idxContent = isDone ? '<i class="fa-solid fa-check"></i>' : (idx + 1);
+                    return `<button class="builder-step ${cls}" data-step="${step.id}" type="button"><span class="bs-idx">${idxContent}</span>${step.label}</button>`;
+                }).join("");
+            }
+
+            function setActiveStep(stepId) {
+                activeStep = stepId;
+                const panes = document.querySelectorAll(".builder-pane");
+                panes.forEach((pane) => {
+                    const match = pane.dataset.pane === stepId;
+                    pane.classList.toggle("active", match);
+                    pane.hidden = !match;
+                });
+                const stepDef = builderStepDefs.find((s) => s.id === stepId);
+                if (stepDef && stepDef.view) {
+                    builderView = stepDef.view;
+                    builderImageOverride = null;
+                }
+                renderBuilderSteps();
+                renderBuilderViewer(getCurrentCar(), getSelectedColor(getCurrentCar(), currentConfig.colorId), getSelectedInterior(getCurrentCar(), currentConfig.interiorId));
+            }
+
+            function updateBuilderFooter(car, breakdown) {
+                if (elements.builderFooterName) elements.builderFooterName.textContent = car.name;
+                if (elements.builderFooterEmi) elements.builderFooterEmi.textContent = `${formatCurrency(breakdown.emi)} / mo`;
+                if (elements.builderFooterTotal) elements.builderFooterTotal.textContent = formatCurrency(breakdown.onRoad);
+            }
+
+            function openSaveModal() {
+                const car = getCurrentCar();
+                const color = getSelectedColor(car, currentConfig.colorId);
+                const breakdown = getPriceBreakdown(currentConfig);
+                if (elements.saveModalImage) elements.saveModalImage.src = color.image || car.heroImage;
+                if (elements.saveModalDetails) {
+                    elements.saveModalDetails.innerHTML = `
+                        <strong>${car.name}</strong><br>
+                        Engine: ${getSelectedEngine(car, currentConfig.engineId).name} &middot; Variant: ${getSelectedVariant(car, currentConfig.variantId).name}<br>
+                        ${color.name} &middot; ${getSelectedWheel(car, currentConfig.wheelId).name} &middot; ${getSelectedInterior(car, currentConfig.interiorId).name}<br>
+                        <strong>On-road: ${formatCurrency(breakdown.onRoad)}</strong>
+                    `;
+                }
+                openOverlay(elements.saveConfigOverlay);
             }
 
             function configSignature(config) {
                 return JSON.stringify({
                     carId: config.carId,
+                    engineId: config.engineId || null,
+                    variantId: config.variantId || null,
                     colorId: config.colorId,
                     wheelId: config.wheelId,
                     interiorId: config.interiorId,
@@ -3336,16 +3754,22 @@
                 elements.discoverHeroBtn.addEventListener("click", () => document.getElementById("models").scrollIntoView({ behavior: "smooth" }));
                 elements.buildHeroBtn.addEventListener("click", () => document.getElementById("configurator").scrollIntoView({ behavior: "smooth" }));
                 elements.bookHeroBtn.addEventListener("click", () => document.getElementById("booking").scrollIntoView({ behavior: "smooth" }));
-                elements.saveBuildBtn.addEventListener("click", () => {
-                    writeStorage(storageKeys.config, currentConfig);
-                    markBuildSaved();
-                    showToast("Configuration saved locally.");
-                });
+                elements.saveConfigBtn.addEventListener("click", () => openSaveModal());
                 elements.addConfigCartBtn.addEventListener("click", () => {
                     addToCollection("cart", currentConfig);
                     markBuildSaved();
                 });
                 elements.addConfigWishlistBtn.addEventListener("click", () => addToCollection("wishlist", currentConfig));
+                if (elements.saveModalClose) elements.saveModalClose.addEventListener("click", () => closeOverlay(elements.saveConfigOverlay));
+                if (elements.saveModalContinue) elements.saveModalContinue.addEventListener("click", () => closeOverlay(elements.saveConfigOverlay));
+                if (elements.saveModalConfirm) {
+                    elements.saveModalConfirm.addEventListener("click", () => {
+                        writeStorage(storageKeys.config, currentConfig);
+                        markBuildSaved();
+                        closeOverlay(elements.saveConfigOverlay);
+                        showToast("Configuration saved locally.");
+                    });
+                }
                 elements.bookingForm.addEventListener("submit", saveBooking);
                 elements.newsletterBtn.addEventListener("click", saveNewsletter);
 
@@ -3456,73 +3880,46 @@
                     jumpToConfigurator(modalCarId);
                 });
 
-                elements.configModelOptions.addEventListener("click", (event) => {
-                    const button = event.target.closest("[data-config-type='model']");
-                    if (!button) return;
-                    currentConfig = getDefaultConfig(button.dataset.value);
-                    updateConfigPreview();
-                });
-
-                elements.configColorOptions.addEventListener("click", (event) => {
-                    const button = event.target.closest("[data-config-type='color']");
-                    if (!button) return;
-                    currentConfig.colorId = button.dataset.value;
-                    updateConfigPreview();
-                });
-
-                elements.configWheelOptions.addEventListener("click", (event) => {
-                    const button = event.target.closest("[data-config-type='wheel']");
-                    if (!button) return;
-                    currentConfig.wheelId = button.dataset.value;
-                    updateConfigPreview();
-                });
-
-                elements.configInteriorOptions.addEventListener("click", (event) => {
-                    const button = event.target.closest("[data-config-type='interior']");
-                    if (!button) return;
-                    currentConfig.interiorId = button.dataset.value;
-                    updateConfigPreview();
-                });
-
-                elements.configLightOptions.addEventListener("click", (event) => {
-                    const button = event.target.closest("[data-config-type='light']");
-                    if (!button) return;
-                    currentConfig.lightMode = button.dataset.value;
-                    updateConfigPreview();
-                });
-
-                elements.configModeOptions.addEventListener("click", (event) => {
-                    const button = event.target.closest("[data-config-type='mode']");
-                    if (!button) return;
-                    currentConfig.previewMode = button.dataset.value;
-                    updateConfigPreview();
-                });
-
-                elements.configPackageOptions.addEventListener("click", (event) => {
-                    const button = event.target.closest("[data-config-type='package']");
-                    if (!button) return;
-                    const value = button.dataset.value;
-                    currentConfig.packageId = currentConfig.packageId === value ? null : value;
-                    updateConfigPreview();
-                });
-
-                const toggleArrayOption = (key, value) => {
-                    const list = Array.isArray(currentConfig[key]) ? currentConfig[key] : [];
-                    currentConfig[key] = list.includes(value) ? list.filter((id) => id !== value) : [...list, value];
-                    updateConfigPreview();
-                };
-
-                elements.configTechOptions.addEventListener("click", (event) => {
-                    const button = event.target.closest("[data-config-type='tech']");
-                    if (!button) return;
-                    toggleArrayOption("tech", button.dataset.value);
-                });
-
-                elements.configPerfOptions.addEventListener("click", (event) => {
-                    const button = event.target.closest("[data-config-type='perf']");
-                    if (!button) return;
-                    toggleArrayOption("performance", button.dataset.value);
-                });
+                if (elements.builderRoot) {
+                    elements.builderRoot.addEventListener("click", (event) => {
+                        const button = event.target.closest("[data-config-type]");
+                        if (button) {
+                            const type = button.dataset.configType;
+                            const value = button.dataset.value;
+                            switch (type) {
+                                case "model": currentConfig = getDefaultConfig(value); builderImageOverride = null; break;
+                                case "engine": currentConfig.engineId = value; break;
+                                case "variant": currentConfig.variantId = value; break;
+                                case "color": currentConfig.colorId = value; builderImageOverride = null; break;
+                                case "wheel": currentConfig.wheelId = value; break;
+                                case "interior": currentConfig.interiorId = value; builderImageOverride = null; break;
+                                case "light": currentConfig.lightMode = value; break;
+                                case "mode": currentConfig.previewMode = value; break;
+                                case "package": currentConfig.packageId = currentConfig.packageId === value ? null : value; break;
+                                case "tech": { const l = currentConfig.tech || []; currentConfig.tech = l.includes(value) ? l.filter((x) => x !== value) : [...l, value]; break; }
+                                case "perf": { const l = currentConfig.performance || []; currentConfig.performance = l.includes(value) ? l.filter((x) => x !== value) : [...l, value]; break; }
+                            }
+                            updateConfigPreview();
+                            return;
+                        }
+                        const stepBtn = event.target.closest("[data-step]");
+                        if (stepBtn) { setActiveStep(stepBtn.dataset.step); return; }
+                        const viewBtn = event.target.closest("[data-view]");
+                        if (viewBtn) {
+                            builderView = viewBtn.dataset.view;
+                            builderImageOverride = null;
+                            renderBuilderViewer(getCurrentCar(), getSelectedColor(getCurrentCar(), currentConfig.colorId), getSelectedInterior(getCurrentCar(), currentConfig.interiorId));
+                            return;
+                        }
+                        const angleBtn = event.target.closest("[data-angle-idx]");
+                        if (angleBtn) {
+                            const angles = builderView === "interior" ? getInteriorViews(getCurrentCar()) : getCurrentCar().gallery;
+                            builderImageOverride = angles[Number(angleBtn.dataset.angleIdx)] || null;
+                            renderBuilderViewer(getCurrentCar(), getSelectedColor(getCurrentCar(), currentConfig.colorId), getSelectedInterior(getCurrentCar(), currentConfig.interiorId));
+                            return;
+                        }
+                    });
+                }
 
                 if (elements.shareBuildBtn) {
                     elements.shareBuildBtn.addEventListener("click", () => {
@@ -3641,6 +4038,7 @@
                 hydrateBooking();
                 updateBookingProgress();
                 updateTheme(readStorage(storageKeys.theme, "dark"));
+                setActiveStep("model");
                 updateConfigPreview();
                 updateUiState();
                 initializeChatbot();
