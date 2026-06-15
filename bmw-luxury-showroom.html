@@ -3440,6 +3440,7 @@
                 }, { passive: true });
                 document.addEventListener("keydown", (event) => {
                     if (!elements.galleryLightbox.classList.contains("active")) return;
+                    event.stopImmediatePropagation();
                     if (event.key === "ArrowLeft") lightboxSetImage(lightboxIndex - 1);
                     if (event.key === "ArrowRight") lightboxSetImage(lightboxIndex + 1);
                     if (event.key === "Escape") closeLightbox();
