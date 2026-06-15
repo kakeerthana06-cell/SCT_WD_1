@@ -577,7 +577,7 @@
         .detail-panel .pricing-value { font-size: 1.8rem; margin: 0.3rem 0 1rem; }
 
         /* ---------- Fullscreen gallery (lightbox) ---------- */
-        .lightbox { position: fixed; inset: 0; z-index: 120; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; padding: 1.2rem; background: radial-gradient(circle at 50% 30%, rgba(18, 28, 48, 0.96), rgba(4, 7, 14, 0.98)); backdrop-filter: blur(14px); opacity: 0; transition: opacity 0.3s var(--ease); }
+        .lightbox { position: fixed; inset: 0; z-index: 1250; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; padding: 1.2rem; background: radial-gradient(circle at 50% 30%, rgba(18, 28, 48, 0.96), rgba(4, 7, 14, 0.98)); backdrop-filter: blur(14px); opacity: 0; transition: opacity 0.3s var(--ease); }
         .lightbox.active { display: flex; opacity: 1; }
         .lightbox-bar { position: absolute; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.1rem 1.4rem; }
         .lightbox-title { font-weight: 700; letter-spacing: 0.04em; color: #fff; }
@@ -3623,6 +3623,7 @@
 
                 document.addEventListener("keydown", (event) => {
                     if (event.key === "Escape") {
+                        if (elements.galleryLightbox.classList.contains("active")) return;
                         document.querySelectorAll(".overlay.active").forEach((overlay) => closeOverlay(overlay));
                     }
                 });
